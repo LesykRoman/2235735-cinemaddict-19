@@ -1,11 +1,9 @@
 import { createElement } from '../render.js';
 
-function createFilterTemplate() {
-  return (
-    `<p>130 291 movies inside</p>
+const createFilterTemplate = ()=> (
+  `<p>130 291 movies inside</p>
     `
-  );
-}
+);
 
 export default class FilmCountView {
   getTemplate() {

@@ -1,7 +1,7 @@
-import {render} from '../render.js';
-import FilmView from '../view/film-view.js';
-import FilmListView from '../view/film-list-view.js';
 import FilmCardView from '../view/film-card-view.js';
+import FilmListView from '../view/film-list-view.js';
+import FilmView from '../view/film-view.js';
+import {render} from '../render.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 
 const FILM_CARD_COUNT = 5;

@@ -1,11 +1,9 @@
 import { createElement } from '../render.js';
 
-function createFilterTemplate() {
-  return (
-    `<button class="films-list__show-more">Show more</button>
+const createFilterTemplate = ()=> (
+  `<button class="films-list__show-more">Show more</button>
     `
-  );
-}
+);
 
 export default class ShowMoreButtonView {
   getTemplate() {

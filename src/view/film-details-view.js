@@ -1,8 +1,7 @@
 import { createElement } from '../render.js';
 
-function createFilterTemplate() {
-  return (
-    `<section class="film-details">
+const createFilterTemplate = ()=> (
+  `<section class="film-details">
     <div class="film-details__inner">
       <div class="film-details__top-container">
         <div class="film-details__close">
@@ -167,10 +166,9 @@ function createFilterTemplate() {
     </div>
   </section>
     `
-  );
-}
+);
 
-export default class FilmListView {
+export default class FilmDetailsView {
   getTemplate() {
     return createFilterTemplate();
   }

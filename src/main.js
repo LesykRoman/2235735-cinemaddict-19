@@ -1,10 +1,9 @@
+import FilmCountView from './view/film-count-view.js';
+import FilmPresenter from './presenter/film-presenter.js';
 import FilterView from './view/filter-view.js';
 import ProfileView from './view/profile-view.js';
-import SortView from './view/sort-view.js';
-import FilmCountView from './view/film-count-view.js';
-
-import FilmPresenter from './presenter/presenter.js';
 import {render} from './render.js';
+import SortView from './view/sort-view.js';
 
 
 const siteMainElement = document.querySelector('.main');
