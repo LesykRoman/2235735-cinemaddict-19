@@ -8,7 +8,7 @@ const film = [
     'comments': [
       `${comment.id}`
     ],
-    'film_info': {
+    'filmInfo': {
       'title': `${getRandomArrayElement(TITLES)}`,
       'alternative_title': 'Laziness Who Sold Themselves',
       'total_rating': 5.3,
@@ -43,7 +43,7 @@ const film = [
     'comments': [
       `${comment.id}`
     ],
-    'film_info': {
+    'filmInfo': {
       'title': `${getRandomArrayElement(TITLES)}`,
       'alternative_title': 'Laziness Who Sold Themselves',
       'total_rating': 5.3,
@@ -78,7 +78,7 @@ const film = [
     'comments': [
       `${comment.id}`
     ],
-    'film_info': {
+    'filmInfo': {
       'title': `${getRandomArrayElement(TITLES)}`,
       'alternative_title': 'Laziness Who Sold Themselves',
       'total_rating': 5.3,

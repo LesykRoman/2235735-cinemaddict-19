@@ -1,56 +1,55 @@
 import { createElement } from '../render.js';
 import { humanizeFilmReleaseDateToDay, getTimeFromMins } from '../utils.js';
-import { comment } from '../mock/comment.js';
 
-const createFilmDetailsCardInfoTemplate = (film_info) => {
+const createFilmDetailsCardInfoTemplate = (filmInfo) => {
   let writers;
-  film_info.writers.forEach((element) => {
+  filmInfo.writers.forEach((element) => {
     writers += `<span class="film-details__genre">${element}</span>`;
   });
   return (
     `<div class="film-details__info-wrap">
   <div class="film-details__poster">
-    <img class="film-details__poster-img" src="${film_info.poster}" alt="">
+    <img class="film-details__poster-img" src="${filmInfo.poster}" alt="">
   
-    <p class="film-details__age">${film_info.age_rating}</p>
+    <p class="film-details__age">${filmInfo.age_rating}</p>
   </div>
   
   <div class="film-details__info">
     <div class="film-details__info-head">
       <div class="film-details__title-wrap">
-        <h3 class="film-details__title">${film_info.title}</h3>
-        <p class="film-details__title-original">Original: ${film_info.alternative_title}</p>
+        <h3 class="film-details__title">${filmInfo.title}</h3>
+        <p class="film-details__title-original">Original: ${filmInfo.alternative_title}</p>
       </div>
   
       <div class="film-details__rating">
-        <p class="film-details__total-rating">${film_info.total_rating}</p>
+        <p class="film-details__total-rating">${filmInfo.total_rating}</p>
       </div>
     </div>
   
     <table class="film-details__table">
       <tr class="film-details__row">
         <td class="film-details__term">Director</td>
-        <td class="film-details__cell">${film_info.director}</td>
+        <td class="film-details__cell">${filmInfo.director}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Writers</td>
-        <td class="film-details__cell">${film_info.writers}</td>
+        <td class="film-details__cell">${filmInfo.writers}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Actors</td>
-        <td class="film-details__cell">${film_info.actors}</td>
+        <td class="film-details__cell">${filmInfo.actors}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Release Date</td>
-        <td class="film-details__cell">${humanizeFilmReleaseDateToDay(film_info.release.date)}</td>
+        <td class="film-details__cell">${humanizeFilmReleaseDateToDay(filmInfo.release.date)}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Duration</td>
-        <td class="film-details__cell">${getTimeFromMins(film_info.duration)}</td>
+        <td class="film-details__cell">${getTimeFromMins(filmInfo.duration)}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Country</td>
-        <td class="film-details__cell">${film_info.release.release_country}</td>
+        <td class="film-details__cell">${filmInfo.release.release_country}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Genres</td>
@@ -60,7 +59,7 @@ const createFilmDetailsCardInfoTemplate = (film_info) => {
       </tr>
     </table>
   
-    <p class="film-details__film-description">${film_info.description}</p>
+    <p class="film-details__film-description">${filmInfo.description}</p>
   </div>
   </div>`
   );
@@ -89,8 +88,8 @@ const createFilmDetailsCommentTemplate = (comments) =>{
 };
 
 const createFilmDetailsTemplate = (film) => {
-  const { comments, film_info } = film;
-  const cardInfo = createFilmDetailsCardInfoTemplate(film_info);
+  const { comments, filmInfo } = film;
+  const cardInfo = createFilmDetailsCardInfoTemplate(filmInfo);
   const userComments = createFilmDetailsCommentTemplate(comments);
   return (
     `<section class="film-details">
