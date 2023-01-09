@@ -1,13 +1,13 @@
 import { createElement } from '../render.js';
 
-const createFilterTemplate = ()=> (
+const createFilmViewTemplate = ()=> (
   `<section class="films"></section>
     `
 );
 
 export default class FilmView {
   getTemplate() {
-    return createFilterTemplate();
+    return createFilmViewTemplate();
   }
 
   getElement() {
