@@ -1,5 +1,5 @@
 import { createElement } from '../render.js';
-import { humanizeFilmReleaseDateToDay, getTimeFromMins } from '../utils.js';
+import { humanizeFilmReleaseDateToDay, getTimeFromMins, humanizeFilmComment } from '../utils.js';
 
 const createFilmDetailsCardInfoTemplate = (filmInfo) => {
   let writers;
@@ -66,18 +66,17 @@ const createFilmDetailsCardInfoTemplate = (filmInfo) => {
 };
 
 const createFilmDetailsCommentTemplate = (comments) =>{
-  let filmComments;
+  let filmComments = '';
   comments.forEach((element)=>{
-    filmComments += `
-  <li class="film-details__comment">
+    filmComments += `<li class="film-details__comment">
   <span class="film-details__comment-emoji">
-    <img src="./images/emoji/${element.emotion}" width="55" height="55" alt="emoji-smile">
+    <img src="./images/emoji/${element.emotion}.png" width="55" height="55" alt="emoji-smile">
   </span>
   <div>
     <p class="film-details__comment-text">${element.comment}</p>
     <p class="film-details__comment-info">
       <span class="film-details__comment-author">${element.author}</span>
-      <span class="film-details__comment-day">2019/12/31 23:59</span>
+      <span class="film-details__comment-day">${humanizeFilmComment(element.date)}</span>
       <button class="film-details__comment-delete">Delete</button>
     </p>
   </div>
@@ -87,8 +86,9 @@ const createFilmDetailsCommentTemplate = (comments) =>{
 
 };
 
-const createFilmDetailsTemplate = (film) => {
-  const { comments, filmInfo } = film;
+const createFilmDetailsTemplate = (film, comments) => {
+  const {filmInfo } = film;
+
   const cardInfo = createFilmDetailsCardInfoTemplate(filmInfo);
   const userComments = createFilmDetailsCommentTemplate(comments);
   return (
@@ -113,7 +113,7 @@ const createFilmDetailsTemplate = (film) => {
           <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">4</span></h3>
   
           <ul class="film-details__comments-list">
-          ${userComments}
+            ${userComments}
           </ul>
   
           <form class="film-details__new-comment" action="" method="get">
@@ -153,23 +153,28 @@ const createFilmDetailsTemplate = (film) => {
 };
 
 export default class FilmDetailsView {
-  constructor({ film }) {
-    this.film = film;
+  #element = null;
+  #film = null;
+  #comments = null;
+
+  constructor({ film }, comments) {
+    this.#film = film;
+    this.#comments = comments;
   }
 
-  getTemplate() {
-    return createFilmDetailsTemplate();
+  get template() {
+    return createFilmDetailsTemplate(this.#film, this.#comments);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
