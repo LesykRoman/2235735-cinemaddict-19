@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const createNoFilterTemplate = ()=> (
   `<nav class="main-navigation">
@@ -9,22 +9,9 @@ const createNoFilterTemplate = ()=> (
       </nav>`
 );
 
-export default class NoFilterView {
-  #element = null;
+export default class NoFilterView extends AbstractView {
 
   get template() {
     return createNoFilterTemplate();
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

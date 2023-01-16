@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeFilmReleaseDateToDay, getTimeFromMins, humanizeFilmComment } from '../utils.js';
 
 const createFilmDetailsCardInfoTemplate = (filmInfo) => {
@@ -152,29 +152,27 @@ const createFilmDetailsTemplate = (film, comments) => {
     `);
 };
 
-export default class FilmDetailsView {
-  #element = null;
+export default class FilmDetailsView extends AbstractView {
   #film = null;
   #comments = null;
+  #handleCloseClick = null;
 
-  constructor({ film }, comments) {
+  constructor({ film, onFilmDetailsCloseClick}, comments) {
+    super();
     this.#film = film;
     this.#comments = comments;
+    this.#handleCloseClick = onFilmDetailsCloseClick;
+
+    this.element.querySelector('.film-details__close-btn')
+      .addEventListener('click', this.#closeClickHandler);
   }
 
   get template() {
     return createFilmDetailsTemplate(this.#film, this.#comments);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
+  #closeClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleCloseClick();
+  };
 }
