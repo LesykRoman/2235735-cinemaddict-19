@@ -7,9 +7,11 @@ import FilmListView from '../view/film-list-view.js';
 import FilterView from '../view/filter-view.js';
 import FilmView from '../view/film-view.js';
 import ProfileView from '../view/profile-view.js';
-import {render} from '../framework/render.js';
+// eslint-disable-next-line no-unused-vars
+import {render, replace, remove} from '../framework/render.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
+import {generateFilter} from '../mock/filter';
 
 
 const FILM_COUNT_PER_STEP = 5;
@@ -17,6 +19,7 @@ const FILM_COUNT_PER_STEP = 5;
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = document.querySelector('.header');
 const siteFooterStatisticElement = document.querySelector('.footer__statistics');
+
 
 let filmComments = [];
 
@@ -31,6 +34,7 @@ export default class FilmPresenter {
   #films = [];
   #comments = [];
   #renderedFilmCount = FILM_COUNT_PER_STEP;
+  // #filters = [];
 
   constructor({filmContainer, filmModel}) {
     this.#filmContainer = filmContainer;
@@ -42,13 +46,14 @@ export default class FilmPresenter {
     this.#comments = [...this.#filmModel.comments];
 
     this.#renderFilms();
-
-
   }
 
   #renderFilms(){
     if (this.#films.length > 0){
-      render (new FilterView(), siteMainElement);
+
+      const filters = generateFilter(this.#films);
+
+      render (new FilterView({filters}), siteMainElement);
       render (new ProfileView(), siteHeaderElement);
       render (new SortView(), siteMainElement);
       render (this.#filmComponent, this.#filmContainer);
@@ -91,8 +96,7 @@ export default class FilmPresenter {
     this.#renderedFilmCount += FILM_COUNT_PER_STEP;
 
     if (this.#renderedFilmCount >= this.#films.length){
-      this.#showMoreButtonComponent.element.remove();
-      this.#showMoreButtonComponent.removeElement();
+      remove(this.#showMoreButtonComponent);
     }
   };
 
