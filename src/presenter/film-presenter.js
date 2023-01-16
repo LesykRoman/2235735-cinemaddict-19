@@ -7,7 +7,7 @@ import FilmListView from '../view/film-list-view.js';
 import FilterView from '../view/filter-view.js';
 import FilmView from '../view/film-view.js';
 import ProfileView from '../view/profile-view.js';
-import {render} from '../render.js';
+import {render} from '../framework/render.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 
@@ -66,10 +66,11 @@ export default class FilmPresenter {
         this.#renderFilm(this.#films[i], filmComments);
       }
       if (this.#films.length > FILM_COUNT_PER_STEP){
-        this.#showMoreButtonComponent = new ShowMoreButtonView();
-        render (this.#showMoreButtonComponent, this.#filmListComponent.element);
+        this.#showMoreButtonComponent = new ShowMoreButtonView({
+          onClick: this.#handleShowMoreButtonClick
+        });
 
-        this.#showMoreButtonComponent.element.addEventListener('click', this.#showMoreButtonClickHandler);
+        render (this.#showMoreButtonComponent, this.#filmListComponent.element);
       }
 
       render (new FilmCountView(), siteFooterStatisticElement);
@@ -82,8 +83,7 @@ export default class FilmPresenter {
     }
   }
 
-  #showMoreButtonClickHandler = (evt)=>{
-    evt.preventDefault();
+  #handleShowMoreButtonClick = ()=>{
     this.#films
       .slice(this.#renderedFilmCount, this.#renderedFilmCount + FILM_COUNT_PER_STEP)
       .forEach((film) => this.#renderFilm(film, filmComments));
@@ -96,37 +96,36 @@ export default class FilmPresenter {
     }
   };
 
-  #renderFilm(film, comments){
-    const filmCard = new FilmCardView({film});
-    const filmDetails = new FilmDetailsView({film}, comments);
 
-    const openFilmDetails = ()=>{
+  #renderFilm(film, comments){
+
+    const filmDetails = new FilmDetailsView({film, onFilmDetailsCloseClick: ()=> {
+      closeFilmDetails.call(this);
+      document.removeEventListener('keydown', escKeyDownHandler);
+    }}, comments);
+
+    const filmCard = new FilmCardView({film, onFilmClick: ()=>{
+      openFilmDetails.call(this);
+      document.addEventListener('keydown', escKeyDownHandler);
+    }});
+
+    function openFilmDetails() {
       document.body.appendChild(filmDetails.element);
       document.body.classList.add('hide-overflow');
-    };
+    }
 
-    const closeFilmDetails = ()=>{
+    function closeFilmDetails() {
       document.body.removeChild(filmDetails.element);
       document.body.classList.remove('hide-overflow');
-    };
+    }
 
-    const escKeyDownHandler = (evt) => {
+    function escKeyDownHandler(evt) {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
         closeFilmDetails();
         document.removeEventListener('keydown', escKeyDownHandler);
       }
-    };
-
-    filmCard.element.querySelector('.film-card__link').addEventListener('click', ()=>{
-      openFilmDetails();
-      document.addEventListener('keydown', escKeyDownHandler);
-    });
-
-    filmDetails.element.querySelector('.film-details__close-btn').addEventListener('click', ()=>{
-      closeFilmDetails();
-      document.removeEventListener('keydown', escKeyDownHandler);
-    });
+    }
 
     render (filmCard, this.#filmListComponent.element.querySelector('.films-list__container'));
   }
