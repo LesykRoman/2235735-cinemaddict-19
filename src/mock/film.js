@@ -1,5 +1,5 @@
 import { POSTERS, TITLES, DESCRIPTIONS } from '../const';
-import { getRandomArrayElement } from '../utils';
+import { getRandomArrayElement } from '../utils/common';
 
 const film = [
   {
@@ -34,7 +34,7 @@ const film = [
       'watchlist': false,
       'already_watched': true,
       'watching_date': '2019-04-12T16:12:32.554Z',
-      'favorite': false
+      'favorite': true
     }
   },
   {
@@ -69,7 +69,7 @@ const film = [
       'watchlist': false,
       'already_watched': true,
       'watching_date': '2019-04-12T16:12:32.554Z',
-      'favorite': false
+      'favorite': true
     }
   },
   {
@@ -101,8 +101,8 @@ const film = [
       'description': `${getRandomArrayElement(DESCRIPTIONS)}`
     },
     'user_details': {
-      'watchlist': false,
-      'already_watched': true,
+      'watchlist': true,
+      'already_watched': false,
       'watching_date': '2019-04-12T16:12:32.554Z',
       'favorite': false
     }

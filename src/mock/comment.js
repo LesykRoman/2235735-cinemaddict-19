@@ -1,4 +1,4 @@
-import { getRandomArrayElement } from '../utils';
+import { getRandomArrayElement } from '../utils/common';
 import { EMOTIONS } from '../const';
 
 const comments = [

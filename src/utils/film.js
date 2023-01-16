@@ -23,8 +23,4 @@ function getTimeFromMins(mins) {
   return `${hours}h ${minutes}m`;
 }
 
-function getRandomArrayElement(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-export {getRandomArrayElement, humanizeFilmReleaseDateToYear,humanizeFilmReleaseDateToDay, getTimeFromMins, humanizeFilmComment};
+export {humanizeFilmReleaseDateToYear,humanizeFilmReleaseDateToDay, getTimeFromMins, humanizeFilmComment};
